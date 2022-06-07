@@ -8,7 +8,8 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface AApp {
     }
-    interface ARoute {
+    interface ALink {
+        "href": string;
     }
     interface ARouter {
     }
@@ -20,11 +21,11 @@ declare global {
         prototype: HTMLAAppElement;
         new (): HTMLAAppElement;
     };
-    interface HTMLARouteElement extends Components.ARoute, HTMLStencilElement {
+    interface HTMLALinkElement extends Components.ALink, HTMLStencilElement {
     }
-    var HTMLARouteElement: {
-        prototype: HTMLARouteElement;
-        new (): HTMLARouteElement;
+    var HTMLALinkElement: {
+        prototype: HTMLALinkElement;
+        new (): HTMLALinkElement;
     };
     interface HTMLARouterElement extends Components.ARouter, HTMLStencilElement {
     }
@@ -34,20 +35,22 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "a-app": HTMLAAppElement;
-        "a-route": HTMLARouteElement;
+        "a-link": HTMLALinkElement;
         "a-router": HTMLARouterElement;
     }
 }
 declare namespace LocalJSX {
     interface AApp {
     }
-    interface ARoute {
+    interface ALink {
+        "href"?: string;
+        "onRedirected"?: (event: CustomEvent<any>) => void;
     }
     interface ARouter {
     }
     interface IntrinsicElements {
         "a-app": AApp;
-        "a-route": ARoute;
+        "a-link": ALink;
         "a-router": ARouter;
     }
 }
@@ -56,7 +59,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "a-app": LocalJSX.AApp & JSXBase.HTMLAttributes<HTMLAAppElement>;
-            "a-route": LocalJSX.ARoute & JSXBase.HTMLAttributes<HTMLARouteElement>;
+            "a-link": LocalJSX.ALink & JSXBase.HTMLAttributes<HTMLALinkElement>;
             "a-router": LocalJSX.ARouter & JSXBase.HTMLAttributes<HTMLARouterElement>;
         }
     }

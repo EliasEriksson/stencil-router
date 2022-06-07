@@ -1,14 +1,22 @@
-import { Component, h, Listen} from "@stencil/core"
+import { Component, h, Host, Listen, State } from "@stencil/core"
+import { router } from "./router"
 
 @Component({
     tag: "a-router",
+    scoped: true,
 })
 export class Router {
-    @Listen("redirected")
-    async handleRedirected() {
-
+    @State() path: string
+    @Listen("redirected", { target: "document"})
+    redirectedHandler() {
+        this.path = window.location.pathname
     }
-    render () {
-        return <slot></slot>
+    render(){
+        return (
+            <Host>
+                { router.get(window.location.pathname) }
+            </Host>
+        )
     }
 }
+
